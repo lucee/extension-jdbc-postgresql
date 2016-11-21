@@ -1,6 +1,6 @@
 <cfcomponent extends="types.Driver" implements="types.IDatasource">
-	<cfset this.dsn="jdbc:postgresql://{host}:{port}/{database}">
-	<cfset this.className="org.postgresql.Driver">
+	<cfset this.dsn="jdbc:pgsql://{host}:{port}/{database}">
+	<cfset this.className="com.impossibl.postgres.jdbc.PGDriver">
 	
 	<cfset this.type.port=this.TYPE_FREE>
 	<cfset this.value.host="localhost">
