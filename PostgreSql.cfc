@@ -1,6 +1,6 @@
 <cfcomponent extends="types.Driver" implements="types.IDatasource">
-	<cfset this.dsn="jdbc:postgresql://{host}:{port}/{database}">
-	<cfset this.className="org.postgresql.Driver">
+	<cfset this.dsn="{connString}">
+	<cfset this.className="{class-name}">
 	
 	<cfset this.type.port=this.TYPE_FREE>
 	<cfset this.value.host="localhost">
@@ -9,12 +9,12 @@
 	
 	<cffunction name="getName" returntype="string" output="no"
 		hint="returns display name of the driver">
-		<cfreturn "PostgreSQL">
+		<cfreturn "{label}">
 	</cffunction>
 	
 	<cffunction name="getDescription" returntype="string" output="no"
 		hint="returns description for the driver">
-		<cfreturn "PostgreSQL JDBC Driver">
+		<cfreturn "{description}">
 	</cffunction>
 	
 	<cffunction name="getFields" returntype="array" output="no"
