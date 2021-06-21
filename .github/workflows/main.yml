@@ -23,7 +23,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: ~/.m2
-        key: lucee-mysql
+        key: lucee-postgres
         restore-keys: |
           ${{ runner.os }}-m2
           maven-cache
@@ -45,7 +45,7 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v2
       with:
-        name: mysql-lex
+        name: postgres-lex
         path: dist/*.lex
     - name: Checkout Lucee
       uses: actions/checkout@v2
