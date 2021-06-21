@@ -1,0 +1,68 @@
+# This workflow will build a Java project with Ant
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-ant
+
+name: Java CI
+
+on: [push, pull_request,workflow_dispatch]
+ 
+jobs:
+  build:
+
+    runs-on: ubuntu-latest   
+    env:
+      luceeVersion: 6.0.0.95-SNAPSHOT
+
+    steps:
+    - uses: actions/checkout@v2   
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'adopt'
+    - name: Cache Maven packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: lucee-mysql
+        restore-keys: |
+          ${{ runner.os }}-m2
+          maven-cache
+    - name: Cache Lucee files
+      uses: actions/cache@v2
+      with:
+        path: _actions/zspitzer/lucee-script-engine-runner/main/lucee-download-cache
+        key: lucee-downloads-${{ env.luceeVersion }}
+        restore-keys: |
+          lucee-downloads
+    - name: Set up Postgres (local)
+      run: |
+        sudo /etc/init.d/postgresql start
+        sudo -u postgres psql -c 'create database lucee;'
+        sudo -u postgres psql -c "create user lucee with encrypted password 'lucee'";
+        sudo -u postgres psql -c 'grant all privileges on database lucee to lucee;'         
+    - name: Build extension-jdbc-postgresql with Ant
+      run: ant -noinput -verbose -buildfile build.xml
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: mysql-lex
+        path: dist/*.lex
+    - name: Checkout Lucee
+      uses: actions/checkout@v2
+      with:
+        repository: lucee/lucee
+        path: lucee
+    - name: Run Lucee Test Suite, labels="postgres"
+      uses: zspitzer/lucee-script-engine-runner@main
+      with:
+        webroot: ${{ github.workspace }}/lucee/test
+        execute: /bootstrap-tests.cfm
+        luceeVersion: ${{ env.luceeVersion }}
+        extensionDir: ${{ github.workspace }}/dist
+      env:
+        testLabels: postgres
+        POSTGRES_SERVER: localhost
+        POSTGRES_USERNAME: lucee
+        POSTGRES_PASSWORD: lucee
+        POSTGRES_PORT: 5432
+        POSTGRES_DATABASE: lucee
