@@ -34,6 +34,7 @@ jobs:
         sudo -u postgres psql -c 'create database lucee;'
         sudo -u postgres psql -c "create user lucee with encrypted password 'lucee'";
         sudo -u postgres psql -c 'grant all privileges on database lucee to lucee;'
+        sudo -u postgres psql -c 'grant all on schema public to lucee;' -d lucee
 
     - name: Build extension-jdbc-postgres with Ant
       run: ant -noinput -verbose -buildfile build.xml
