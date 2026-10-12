@@ -1,6 +1,8 @@
 <cfcomponent extends="types.Driver" implements="types.IDatasource">
 	<cfset this.dsn="{connString}">
 	<cfset this.className="{class-name}">
+	<cfset this.bundleName="{bundle-name}">
+	<cfset this.maven="{maven}">
 	
 	<cfset this.type.port=this.TYPE_FREE>
 	<cfset this.value.host="localhost">
