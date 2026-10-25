@@ -1,7 +1,7 @@
 component extends="org.lucee.cfml.test.LuceeTestCase" labels="postgres" {
 
 	// keep in sync with pom.xml mvnVersion (major.minor.patch prefix)
-	variables.mavenDriverVersionPrefix = "42.7.11";
+	variables.mavenDriverVersionPrefix = "42.7.14";
 
 	function isNotSupported() {
 		return isEmpty( server.getDatasource( "postgres" ) );

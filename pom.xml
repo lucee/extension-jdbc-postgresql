@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.lucee</groupId>
     <artifactId>postgresql-jdbc-extension</artifactId>
-    <version>42.7.11.3-SNAPSHOT</version>
+    <version>42.7.14.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>PostgreSQL JDBC</name>
 
@@ -23,8 +23,8 @@
         <releaseType>server</releaseType>
         <driverClass>org.postgresql.Driver</driverClass>
         <bundleName>org.postgresql.jdbc</bundleName>
-        <!-- PostgreSQL JDBC driver version; the extension version is <driverVersion>.N (42.7.11.N) -->
-        <driverVersion>42.7.11</driverVersion>
+        <!-- PostgreSQL JDBC driver version; the extension version is <driverVersion>.N (42.7.14.N) -->
+        <driverVersion>42.7.14</driverVersion>
         <bundleVersion>${driverVersion}</bundleVersion>
         <mvnGroupId>org.postgresql</mvnGroupId>
         <mvnArtifactId>postgresql</mvnArtifactId>
