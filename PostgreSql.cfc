@@ -34,5 +34,9 @@
 		<cfreturn data.password>
 	</cffunction>
 	
+	<cffunction name="alwaysSetTimeout" returntype="boolean" output="no"
+		hint="always set the query timeout (remaining request time); pgjdbc uses one shared timer thread for all connections">
+		<cfreturn true>
+	</cffunction>
 	
 </cfcomponent>
